@@ -12,6 +12,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.net.URLDecoder;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,58 +25,18 @@ public class HouseServiceImp implements HouseService{
     @Autowired
     private HousesRepository houseRepository;
 
-    /*@Autowired
-    private EntityManager entityManager;*/
 
-    /*@Override
-    public List<House> searchHousesMain(String estate, String houseNumber, String street, Integer numberOfBedrooms, String tenantName, Long tenantPhone) {
+    private Date getDateTimestampFromString(String dateToBeChanged) {
         try {
-            // Create the CriteriaBuilder
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-
-            // Create the CriteriaQuery
-            CriteriaQuery<House> query = cb.createQuery(House.class);
-            Root<House> root = query.from(House.class);
-
-            // Create the Predicate
-            List<Predicate> predicates = new ArrayList<>();
-            if (estate != null) {
-                predicates.add(cb.like(root.get("estate"), "%" + estate + "%"));
-            }
-            if (houseNumber != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("house_number"), houseNumber));
-            }
-            if (street != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("street"), street));
-            }
-
-            if (numberOfBedrooms != null) {
-                predicates.add(cb.like(root.get("number_of_bedrooms"), "%" + numberOfBedrooms + "%"));
-            }
-            if (tenantName != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("tenant_name"), tenantName));
-            }
-            if (tenantPhone != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("tenant_phone"), tenantPhone));
-            }
-            query.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-
-            // Execute the query
-            return houseRepository.findAllHouses((Specification<House>) query);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = (Date) dateFormat.parse(dateToBeChanged);
+            return date;
         }catch (Exception ex){
-            System.out.println("Error In HouseServiceImp Class:\n"+ex.getMessage().toString());
             return null;
         }
     }
-*/
 
-    //private final HousesRepository housesRepository;
-
-//    public HouseSearchService(HousesRepository housesRepository) {
-//        this.housesRepository = housesRepository;
-//    }
-
-    public List<House> searchHousesMain(String estate, String houseNumber, String street, Integer numberOfBedrooms, String tenantName, Long tenantPhone) {
+    public List<House> searchHousesMain(String estate, String houseNumber, String street, Integer numberOfBedrooms, String tenantName, Long tenantPhone, String date_created_start, String date_created_end) {
 
         Specification<House> spec = (root, query, builder) -> {
             Predicate p = builder.conjunction();
@@ -87,9 +50,7 @@ public class HouseServiceImp implements HouseService{
             if (street != null) {
                 p = builder.and(p, builder.equal(root.get("street"), trim(street)));
             }
-
             if (numberOfBedrooms != null) {
-                //p = builder.and(p, builder.equal(root.get("numberOfBedrooms"), "%" + numberOfBedrooms + "%"));
                 p = builder.and(p, builder.equal(root.get("numberOfBedrooms"),  trim(numberOfBedrooms )));
             }
             if (tenantName != null) {
@@ -97,6 +58,10 @@ public class HouseServiceImp implements HouseService{
             }
             if (tenantPhone != null) {
                 p = builder.and(p, builder.equal(root.get("tenantPhone"), trim(tenantPhone)));
+            }
+
+            if (getDateTimestampFromString(date_created_start) != null && getDateTimestampFromString(date_created_end) != null) {
+                p = builder.and(p, builder.between(root.get("dateCreated"), getDateTimestampFromString(date_created_start), getDateTimestampFromString(date_created_end)));
             }
 
             return p;
@@ -108,5 +73,10 @@ public class HouseServiceImp implements HouseService{
     public House addHouseDetails(House house) {
         houseRepository.save(house);
         return  house;
+    }
+
+    @Override
+    public List<House> getAllHouses() {
+        return houseRepository.findAll();
     }
 }

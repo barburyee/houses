@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>House Listing</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h1>House Listing</h1>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success m-1 pull-right" onclick="adding_house()">Add House</button>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button class="btn btn-inverse pull-right" onclick="show_search_div()" style="color: white;background-color: #3F80EF !important;">  <!--th:attr="data-toggle='collapse', data-target='#demo'"-->
+                                Filter Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" id="showDiv" style="display: none">
+                        <div class="col-sm-12">
+                            <!--<div th:id="demo" class="collapse">-->
+                            <br>
+                            <!--<form action="@{/searchHouses}" method="post">-->
+                                <div class="row" >  <!--style="background: lightgrey;"-->
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="estate">
+                                                Estate
+                                            </label>
+                                            <input type="text" name="estate" id="estate" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="house_number">
+                                                House Number
+                                            </label>
+                                            <input type="text" name="house_number" id="house_number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="street">
+                                                Street
+                                            </label>
+                                            <input type="text" name="street" id="street" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="number_of_bedrooms">
+                                                No Of Bedrooms
+                                            </label>
+                                            <input type="number" name="number_of_bedrooms" id="number_of_bedrooms" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="tenant_name">
+                                                Tenant Name
+                                            </label>
+                                            <input type="text" name="tenant_name" id="tenant_name" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="tenant_phone">
+                                                Phone Number
+                                            </label>
+                                            <input type="number" name="tenant_phone" id="tenant_phone" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="date_from">
+                                                Date From
+                                            </label>
+                                            <input type="date" name="from" id="date_from" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="date_to">
+                                                Date To
+                                            </label>
+                                            <input type="date" name="to" id="date_to" class="form-control"  oninput="this.value = date_convert(this.value)">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-success" onclick="searchHouses()" >
+                                            Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            <!--</form>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" id="main_body_contents">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Estate</th>
+                                    <th>House Number</th>
+                                    <th>Street</th>
+                                    <th>No Of Bedrooms</th>
+                                    <th>Tenant Name</th>
+                                    <th>Phone</th>
+                                    <th>Date Created</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="house, iterStat: ${searchedHouses}">
+                                    <td th:text="${iterStat.index + 1}"></td>
+                                    <td th:text="${house.estate}"></td>
+                                    <td th:text="${house.houseNumber}"></td>
+                                    <td th:text="${house.street}"></td>
+                                    <td th:text="${house.numberOfBedrooms}"></td>
+                                    <td th:text="${house.tenantName}"></td>
+                                    <td th:text="${house.tenantPhone}"></td>
+                                    <td th:text="${house.dateCreated}"></td>
+                                </tr>
+                                </tbody>
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Estate</th>
+                                    <th>House Number</th>
+                                    <th>Street</th>
+                                    <th>No Of Bedrooms</th>
+                                    <th>Tenant Name</th>
+                                    <th>Phone</th>
+                                    <th>Date Created</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var showStat = 1;
+    /*$(document).ready(function() {*/
+        function adding_house(){
+            $.ajax({
+                type: "GET",
+                url: "/addNewHouse",
+                success: function(response,status) {
+                    $('#main_body_contents').empty();
+                    $('#main_body_contents').html(response);
+                    // handle the response
+                }
+            });
+        }
+        function show_search_div(){
+            if(showStat===1){
+                $('#showDiv').show();
+                showStat = 2;
+            }else{
+                $('#showDiv').hide();
+                showStat = 1;
+            }
+
+        }
+
+    function searchHouses(){
+            try{
+                let formData = {};
+                let estate = $('#estate').val();
+                let houseNumber = $('#house_number').val();
+                let street = $('#street').val();
+                let numberOfBedrooms = $('#number_of_bedrooms').val();
+                let tenantName = $('#tenant_name').val();
+                let tenantPhone = $('#tenant_phone').val();
+                let date_created_start = $('#date_from').val();
+                let date_created_end = $('#date_to').val();
+                if(estate!==''){
+                    formData["estate"]= estate;
+                }
+                if(houseNumber!==''){
+                    formData["houseNumber"] = houseNumber;
+                }
+                if(street!==''){
+                    formData["street"]= street;
+                }
+                if(numberOfBedrooms!==''){
+                    formData["numberOfBedrooms"]= numberOfBedrooms;
+                }
+                if(tenantName!==''){
+                    formData["tenantName"]= tenantName;
+                }
+                if(tenantPhone!==''){
+                    formData["tenantPhone"]= tenantPhone;
+                }
+                if(date_created_start!==''){
+                    formData["date_created_start"] = date_created_start;
+                }
+                if(date_created_end!==''){
+                    formData["date_created_end"] = date_created_end;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/searchHousesPred",
+                    data: formData,
+                    success: function(response,status) {
+                        $('#main_body_contents').empty();
+                        $('#main_body_contents').html(response);
+                        // handle the response
+                    }
+                });
+            }catch (e) {
+                console.log(e.message);
+            }
+
+    }
+    /*});*/
+</script>
+</html>

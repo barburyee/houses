@@ -1,0 +1,54 @@
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Estate</th>
+                <th>House Number</th>
+                <th>Street</th>
+                <th>No Of Bedrooms</th>
+                <th>Tenant Name</th>
+                <th>Phone</th>
+                <th>Date Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${searchedHouses.size()>0}" th:each="house, iterStat: ${searchedHouses}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${house.estate}"></td>
+                <td th:text="${house.houseNumber}"></td>
+                <td th:text="${house.street}"></td>
+                <td th:text="${house.numberOfBedrooms}"></td>
+                <td th:text="${house.tenantName}"></td>
+                <td th:text="${house.tenantPhone}"></td>
+                <td th:text="${house.dateCreated}"></td>
+            </tr>
+            <tr th:if="${searchedHouses.size()==0}">
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+                <td></td>
+                <td ></td>
+                <td ></td>
+                <td ></td>
+            </tr>
+            </tbody>
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Estate</th>
+                <th>House Number</th>
+                <th>Street</th>
+                <th>No Of Bedrooms</th>
+                <th>Tenant Name</th>
+                <th>Phone</th>
+                <th>Date Created</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
