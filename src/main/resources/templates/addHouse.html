@@ -1,95 +1,64 @@
-<!--<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>House Listing</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <h1>Enter House Details</h1>
-                        </div>
-                        <div class="col-sm-2">
-                            <a th:href="@{/}" class="btn btn-success m-1 pull-right">Back</a>
-                        </div>
-                    </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="estate_id">
+                        Estate
+                    </label>
+                    <input type="text" name="estate" id="estate_id" class="form-control">
                 </div>
-                <div class="card-body">-->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!--<form action="@{/searchHouses}" method="post">-->
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="estate_id">
-                                            Estate
-                                        </label>
-                                        <input type="text" name="estate" id="estate_id" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="house_number_id">
-                                            House Number
-                                        </label>
-                                        <input type="text" name="house_number" id="house_number_id" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="street_id">
-                                            Street
-                                        </label>
-                                        <input type="text" name="street" id="street_id" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="number_of_bedrooms_id">
-                                            No Of Bedrooms
-                                        </label>
-                                        <input type="number" name="number_of_bedrooms" id="number_of_bedrooms_id" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tenant_name_id">
-                                            Tenant Name
-                                        </label>
-                                        <input type="text" name="tenant_name" id="tenant_name_id" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tenant_phone_id">
-                                            Phone Number
-                                        </label>
-                                        <input type="number" name="tenant_phone" id="tenant_phone_id" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button class="btn btn-success pull-right greenish" onclick="addHouse()" style="margin-top: 30px;" >
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
-                            <!--</form>-->
-                        </div>
-                    </div>
-                <!--</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="house_number_id">
+                        House Number
+                    </label>
+                    <input type="text" name="house_number" id="house_number_id" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="street_id">
+                        Street
+                    </label>
+                    <input type="text" name="street" id="street_id" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="number_of_bedrooms_id">
+                        No Of Bedrooms
+                    </label>
+                    <input type="number" name="number_of_bedrooms" id="number_of_bedrooms_id" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="tenant_name_id">
+                        Tenant Name
+                    </label>
+                    <input type="text" name="tenant_name" id="tenant_name_id" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="tenant_phone_id">
+                        Phone Number
+                    </label>
+                    <input type="number" name="tenant_phone" id="tenant_phone_id" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-success pull-right greenish" onclick="addHouse()" style="margin-top: 30px;" >
+                    Submit
+                </button>
             </div>
         </div>
     </div>
 </div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
 <script type="text/javascript">
     function addHouse(){
         const data = {
